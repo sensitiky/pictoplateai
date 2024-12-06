@@ -9,7 +9,12 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.1.0",
+    "@firebase/app": "^0.10.16",
+    "@firebase/auth": "^1.8.1",
+    "@firebase/firestore": "^4.7.5",
+    "@firebasegen/default-connector": "file:dataconnect-generated\\js\\default-connector",
+    "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-navigation/stack": "^7.0.18",
     "expo": "~52.0.17",
     "expo-status-bar": "~2.0.0",
     "nativewind": "^4.1.23",

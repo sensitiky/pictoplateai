@@ -9,3 +9,6 @@ export interface UserContextProps {
   user: IUser | null;
   loading: boolean;
 }
+export interface IAuthenticationForms {
+  changeTab: () => void;
+}
