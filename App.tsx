@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import './global.css';
+import Test from '@components/test';
+import { UserProvider } from '@contexts/userContext';
+import { UserContext } from '@utils/helpers';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <UserProvider>
+      <UserContext.Consumer>
+        {({ user, loading }) =>
+          loading ? <Test /> : user ? <Test /> : <Test />
+        }
+      </UserContext.Consumer>
+    </UserProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
