@@ -1,6 +1,6 @@
 # Pic to PlateAI
 
-<img src="./lib/assets/img/logo.webp" alt="pic_to_plate_ai Logo" height="250px"/>
+<img src="./assets/logo.webp" alt="pic_to_plate_ai Logo" height="250px"/>
 
 A React Native application built with TypeScript that utilizes computer vision to transform pictures into plate representations, enhancing image analysis and processing capabilities.
 
