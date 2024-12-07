@@ -38,3 +38,11 @@ yarn-error.*
 # firebase
 dataconnect/
 dataconnect-generated/
+functions/
+.firebaserc
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+remoteconfig.template.json

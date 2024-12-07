@@ -10,8 +10,6 @@ import { doc, getFirestore, setDoc } from '@firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IUser } from '@utils/interfaces';
 
-//TODO: fix dependencies and make this work with the current database
-
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
@@ -30,14 +28,14 @@ const saveUserUID = async (uid: string) => {
   try {
     await AsyncStorage.setItem('@userUID', uid);
   } catch (error) {
-    console.error(`Error al almacenar el uid ${error}`);
+    console.error(`Error saving uuid ${error}`);
   }
 };
 const removeUserUID = async () => {
   try {
     await AsyncStorage.removeItem('@userUID');
   } catch (error) {
-    console.error(`Error al remover el uid ${error}`);
+    console.error(`Error removing uuid ${error}`);
   }
 };
 export const saveUser = async (user: IUser): Promise<boolean> => {
@@ -92,9 +90,9 @@ export const logoutUser = async () => {
   try {
     await signOut(auth);
     await removeUserUID();
-    console.log('Usuario cerrado sesión correctamente');
+    console.log('Logout succesfully');
   } catch (error) {
-    console.error(`Error al cerrar sesión ${error}`);
+    console.error(`Error in logout ${error}`);
     return error;
   }
 };

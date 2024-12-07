@@ -7,12 +7,12 @@ export default function Authentication() {
   const renderForm = () => {
     switch (activeTab) {
       case 'Login':
-        return <Login changeTab={() => setActiveTab('Login')} />;
+        return <Login changeTab={() => setActiveTab('Register')} />;
       case 'Register':
         return <Register changeTab={() => setActiveTab('Login')} />;
       default:
         return null;
     }
   };
-  return <View>{renderForm()}</View>;
+  return <View className="bg-white flex-1">{renderForm()}</View>;
 }

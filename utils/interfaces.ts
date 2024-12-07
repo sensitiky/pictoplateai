@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IUser {
   id: string;
   name: string;
