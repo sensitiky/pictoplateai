@@ -6,13 +6,21 @@ A React Native application built with TypeScript that utilizes computer vision t
 
 ## Table of Contents
 
+- [Stack](#stack)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Codebase](#codebase-context)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
+
+## Stack
+
+- **Typescript**
+- **React-Native**
+- **Expo**
+- **Firebase**
+- **Nativewind**
 
 ## Features
 
@@ -71,10 +79,6 @@ A React Native application built with TypeScript that utilizes computer vision t
 2. Upload or capture a photo using the built-in camera feature.
 3. Choose the desired transformation settings.
 4. View and save the transformed image.
-
-## Codebase Context
-
-For an in-depth look at the codebase, refer to the [Codebase Context](#codebase-context) section.
 
 ## Contributing
 

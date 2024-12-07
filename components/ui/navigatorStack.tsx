@@ -1,12 +1,7 @@
 import Authentication from '@pages/auth';
 import Home from '@pages/home';
-import { createStackNavigator } from '@react-navigation/stack';
+import { AuthStack, AppStack } from '@utils/helpers';
 
-export type AuthStackParameters = {
-  Welcome: undefined;
-};
-
-const AuthStack = createStackNavigator<AuthStackParameters>();
 export const AuthNavigator = () => {
   return (
     <AuthStack.Navigator>
@@ -18,10 +13,7 @@ export const AuthNavigator = () => {
     </AuthStack.Navigator>
   );
 };
-export type AppStackParameters = {
-  Home: undefined;
-};
-export const AppStack = createStackNavigator<AppStackParameters>();
+
 export const AppNavigator = () => {
   return (
     <AppStack.Navigator>

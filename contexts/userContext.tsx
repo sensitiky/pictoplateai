@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { IUser, UserContextProps } from '../utils/interfaces';
+import { IUser } from '../utils/interfaces';
 import { UserContext } from '../utils/helpers';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { doc, getDoc, getFirestore } from '@firebase/firestore';

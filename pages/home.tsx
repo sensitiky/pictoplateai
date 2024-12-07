@@ -12,11 +12,7 @@ import { ClarifaiService } from '@data/services/apiAI';
 import { OpenFoodService } from '@data/services/apiOpenFood';
 import { logoutUser } from '@data/services/firebase';
 import { UserContext } from '@utils/helpers';
-
-// Extend the ImagePickerAsset type to include base64
-type ImagePickerAssetWithBase64 = ImagePicker.ImagePickerAsset & {
-  base64?: string;
-};
+import { ImagePickerAssetWithBase64 } from '@utils/types';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
