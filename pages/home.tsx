@@ -13,7 +13,11 @@ import { OpenFoodService } from '@data/services/apiOpenFood';
 import { logoutUser } from '@data/services/firebase';
 import { UserContext } from '@utils/helpers';
 import { ImagePickerAssetWithBase64 } from '@utils/types';
+import { NutritionalCard } from '@components/ui/nutritionalCard';
+import { HistoryItem } from '@data/models/foodHistory';
+import { historyService } from '@data/repository/historyService';
 
+//TODO: modularizar todo esto amén, si alguien lee este código y no le da un algo, me alegra saber que estamos en el mismo barco
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,21 +47,20 @@ export default function Home() {
     ) {
       const asset = pickerResult.assets[0] as ImagePickerAssetWithBase64;
 
-      // Ensure uri and base64 are available
       if (asset.uri && asset.base64) {
         setSelectedImage(asset.uri);
-        analyzeImage(asset.base64);
+        analyzeImage(asset);
       } else {
         Alert.alert('Could not retrieve image data.');
       }
     }
   };
 
-  const analyzeImage = async (base64Image: string) => {
+  const analyzeImage = async (asset: ImagePickerAssetWithBase64) => {
     setLoading(true);
     try {
       const clarifaiService = new ClarifaiService();
-      const concepts = await clarifaiService.analyzeImage(base64Image);
+      const concepts = await clarifaiService.analyzeImage(asset.base64!);
       if (concepts && concepts.size > 0) {
         const topConcept = concepts.get('concepts')[0];
         const foodName = topConcept.name;
@@ -67,6 +70,14 @@ export default function Home() {
         );
         if (nutritionalData) {
           setNutritionalInfo(nutritionalData);
+          const newHistoryItem = new HistoryItem(
+            Date.now(),
+            new Date(),
+            nutritionalData,
+            asset.uri
+          );
+          console.log('Creating new history item:', newHistoryItem);
+          await historyService.addHistory(newHistoryItem);
         } else {
           Alert.alert('Nutritional information not found.');
         }
@@ -121,9 +132,11 @@ export default function Home() {
             Nutritional Information
           </Text>
           {Object.entries(nutritionalInfo).map(([key, value]) => (
-            <Text key={key} className="text-lg text-gray-700 text-center mb-1">
-              {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
-            </Text>
+            <NutritionalCard
+              key={key}
+              title={key.charAt(0).toUpperCase() + key.slice(1)}
+              value={value}
+            />
           ))}
         </View>
       )}

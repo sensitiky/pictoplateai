@@ -4,6 +4,7 @@ import { UserProvider } from '@contexts/userContext';
 import { UserContext } from '@utils/helpers';
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             )
           }
         </UserContext.Consumer>
+        <StatusBar style="dark" />
       </NavigationContainer>
     </UserProvider>
   );

@@ -1,49 +1,39 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { IUser } from '../utils/interfaces';
 import { UserContext } from '../utils/helpers';
-import { getAuth, onAuthStateChanged } from '@firebase/auth';
-import { doc, getDoc, getFirestore } from '@firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  const [loading, setLoading] = useState(true);
-  const auth = getAuth();
-  const db = getFirestore();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
-      if (authUser) {
-        try {
-          const userDocRef = doc(db, 'users', authUser.uid);
-          const userDoc = await getDoc(userDocRef);
-
-          if (userDoc.exists()) {
-            setUser(userDoc.data() as IUser);
-          } else {
-            console.warn('Issue finding user data');
-            setUser(null);
-          }
-
-          await AsyncStorage.setItem('@userUID', authUser.uid).catch(
-            console.error
-          );
-        } catch (error) {
-          console.error('Issue obtaining user data:', error);
-          setUser(null);
+    const loadUser = async () => {
+      try {
+        const userData = await AsyncStorage.getItem('@userData');
+        if (userData) {
+          setUser(JSON.parse(userData));
         }
-      } else {
-        setUser(null);
-        await AsyncStorage.removeItem('@userUID').catch(console.error);
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    };
+    loadUser();
+  }, []);
 
-    return unsubscribe;
-  }, [auth, db]);
+  const updateUser = async (newUser: IUser | null) => {
+    setUser(newUser);
+    if (newUser) {
+      await AsyncStorage.setItem('@userData', JSON.stringify(newUser));
+    } else {
+      await AsyncStorage.removeItem('@userData');
+    }
+  };
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
+    <UserContext.Provider value={{ user, loading, setUser: updateUser }}>
       {children}
     </UserContext.Provider>
   );

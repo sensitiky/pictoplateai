@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface IUser {
   id: string;
   name: string;
@@ -10,7 +8,12 @@ export interface IUser {
 export interface UserContextProps {
   user: IUser | null;
   loading: boolean;
+  setUser: (newUser: IUser | null) => Promise<void>;
 }
 export interface IAuthenticationForms {
   changeTab: () => void;
+}
+export interface NutritionalCardProps {
+  title: string;
+  value: string;
 }

@@ -1,6 +1,7 @@
 import { loginUser } from '@data/services/firebase';
+import { UserContext } from '@utils/helpers';
 import { IAuthenticationForms } from '@utils/interfaces';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   TextInput,
   View,
@@ -14,6 +15,7 @@ export default function Login({ changeTab }: IAuthenticationForms) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const { setUser } = useContext(UserContext);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -22,7 +24,12 @@ export default function Login({ changeTab }: IAuthenticationForms) {
     }
     try {
       setLoading(true);
-      await loginUser(email, password);
+      const userData = await loginUser(email, password);
+      if (userData) {
+        setUser(userData);
+      } else {
+        Alert.alert('Error signing into your account');
+      }
     } catch (e) {
       console.error(e);
       Alert.alert('Error signing into your account');

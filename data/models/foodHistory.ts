@@ -1,18 +1,18 @@
-class HistoryItem {
+export class HistoryItem {
   id: number;
-  imagePath: string;
-  dateTime = new Date();
-  nutritionalInfo = new Map<string, number>();
+  dateTime: Date;
+  nutritionalInfo?: Record<string, string>;
+  imagePath?: string | undefined;
 
   constructor(
     id: number,
-    imagePath: string,
     dateTime: Date,
-    nutritionalInfo: Map<string, number>
+    nutritionalInfo: Record<string, string>,
+    imagePath?: string
   ) {
     this.id = id;
+    this.dateTime = dateTime;
+    this.nutritionalInfo = nutritionalInfo;
     this.imagePath = imagePath;
-    dateTime = dateTime;
-    nutritionalInfo = nutritionalInfo;
   }
 }

@@ -1,7 +1,7 @@
-import { registerUser, saveUser } from '@data/services/firebase';
-import { useNavigation } from '@react-navigation/native';
+import { registerUser } from '@data/services/firebase';
+import { UserContext } from '@utils/helpers';
 import { IAuthenticationForms, IUser } from '@utils/interfaces';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ export default function Register({ changeTab }: IAuthenticationForms) {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const navigation = useNavigation();
+  const { setUser } = useContext(UserContext);
 
   const handleRegister = async () => {
     if (!email || !password || !confirmPassword) {
@@ -31,17 +31,20 @@ export default function Register({ changeTab }: IAuthenticationForms) {
       return;
     }
     setLoading(true);
-    const userCredential = await registerUser(email, password);
-    if (userCredential) {
-      const user: IUser = {
-        id: userCredential.user.uid,
-        name: name,
-        lastName: 'Perez',
-        email: email,
-        isPremium: false,
-      };
-      await saveUser(user);
+    const userData: IUser = {
+      id: '',
+      name,
+      lastName,
+      email,
+      isPremium: false,
+    };
+    const registeredUser = await registerUser(userData, password);
+    if (registeredUser) {
+      setUser(registeredUser);
+    } else {
+      Alert.alert('Error registering your account');
     }
+    setLoading(false);
   };
 
   return (

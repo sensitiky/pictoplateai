@@ -6,7 +6,7 @@ import {
   signOut,
   UserCredential,
 } from '@firebase/auth';
-import { doc, getFirestore, setDoc } from '@firebase/firestore';
+import { doc, getDoc, getFirestore, setDoc } from '@firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IUser } from '@utils/interfaces';
 
@@ -24,13 +24,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getFirestore();
 
-const saveUserUID = async (uid: string) => {
-  try {
-    await AsyncStorage.setItem('@userUID', uid);
-  } catch (error) {
-    console.error(`Error saving uuid ${error}`);
-  }
-};
 const removeUserUID = async () => {
   try {
     await AsyncStorage.removeItem('@userUID');
@@ -59,27 +52,50 @@ export const saveUser = async (user: IUser): Promise<boolean> => {
 export const loginUser = async (
   email: string,
   password: string
-): Promise<UserCredential | null> => {
+): Promise<IUser | null> => {
   try {
-    const user = await signInWithEmailAndPassword(auth, email, password);
-    await saveUserUID(user.user.uid);
-    return user;
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const uid = userCredential.user.uid;
+
+    const userDocRef = doc(database, 'users', uid);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data() as IUser;
+      userData.id = uid;
+      await AsyncStorage.setItem('@userData', JSON.stringify(userData));
+      return userData;
+    } else {
+      console.error('No such user document!');
+      return null;
+    }
   } catch (error) {
     console.error(`Failed to login ${error}`);
     return null;
   }
 };
 export const registerUser = async (
-  email: string,
+  userInfo: IUser,
   password: string
-): Promise<UserCredential | null> => {
+): Promise<IUser | null> => {
   try {
     const registeredUser = await createUserWithEmailAndPassword(
       auth,
-      email,
+      userInfo.email,
       password
     );
-    return registeredUser;
+    const uid = registeredUser.user.uid;
+    userInfo.id = uid;
+
+    const userDocRef = doc(database, 'users', uid);
+    await setDoc(userDocRef, userInfo);
+
+    await AsyncStorage.setItem('@userData', JSON.stringify(userInfo));
+    return userInfo;
   } catch (error) {
     console.error(`Failed to register ${error}`);
     return null;

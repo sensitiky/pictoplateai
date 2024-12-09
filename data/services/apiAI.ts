@@ -8,12 +8,16 @@ export class ClarifaiService {
   constructor() {
     this.pat = process.env.EXPO_PUBLIC_PAT_KEY;
     this.userID = process.env.EXPO_PUBLIC_USER_ID;
-    this.appID = process.env.EXPO_PUBLIC_APP_ID;
+    this.appID = process.env.EXPO_PUBLIC_CLARIFAI_APP_ID;
     this.modelID = process.env.EXPO_PUBLIC_MODEL_ID;
     this.modelVersionID = process.env.EXPO_PUBLIC_MODEL_VERSION_ID;
   }
 
   public async analyzeImage(base64Image: string): Promise<Map<string, any>> {
+    const formattedBase64 = base64Image.startsWith('data:image')
+      ? base64Image
+      : `data:image/jpeg;base64,${base64Image}`;
+
     const raw = JSON.stringify({
       user_app_id: {
         user_id: this.userID,
@@ -23,7 +27,7 @@ export class ClarifaiService {
         {
           data: {
             image: {
-              base64: base64Image,
+              base64: formattedBase64.split(',')[1],
             },
           },
         },
