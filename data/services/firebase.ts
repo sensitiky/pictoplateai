@@ -4,9 +4,14 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
-  UserCredential,
 } from '@firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from '@firebase/firestore';
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from '@firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IUser } from '@utils/interfaces';
 
@@ -24,9 +29,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getFirestore();
 
-const removeUserUID = async () => {
+const removeUserData = async () => {
   try {
-    await AsyncStorage.removeItem('@userUID');
+    await AsyncStorage.removeItem('@userData');
   } catch (error) {
     console.error(`Error removing uuid ${error}`);
   }
@@ -46,6 +51,19 @@ export const saveUser = async (user: IUser): Promise<boolean> => {
     return true;
   } catch (error) {
     console.error(`Failed to save user ${error}`);
+    return false;
+  }
+};
+export const updateUser = async (
+  userId: string,
+  updatedFields: Partial<IUser>
+): Promise<boolean> => {
+  try {
+    const userDocRef = doc(database, 'users', userId);
+    await updateDoc(userDocRef, updatedFields);
+    return true;
+  } catch (e) {
+    console.error(e);
     return false;
   }
 };
@@ -102,10 +120,9 @@ export const registerUser = async (
   }
 };
 export const logoutUser = async () => {
-  const auth = getAuth();
   try {
     await signOut(auth);
-    await removeUserUID();
+    await removeUserData();
     console.log('Logout succesfully');
   } catch (error) {
     console.error(`Error in logout ${error}`);

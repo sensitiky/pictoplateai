@@ -11,6 +11,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const loadUser = async () => {
       try {
         const userData = await AsyncStorage.getItem('@userData');
+        console.table(userData);
         if (userData) {
           setUser(JSON.parse(userData));
         }

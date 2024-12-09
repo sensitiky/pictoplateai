@@ -11,7 +11,6 @@ export default function History() {
   useEffect(() => {
     const fetchHistory = async () => {
       const data = await historyService.getHistory();
-      console.log('Fetched history:', data); // Logging para depuración
       setHistory(data);
       setLoading(false);
     };
@@ -19,8 +18,6 @@ export default function History() {
   }, []);
 
   const renderItem = ({ item }: { item: HistoryItem }) => {
-    console.log('Rendering item:', item); // Logging para depuración
-
     // Comprobación de `nutritionalInfo`
     if (!item.nutritionalInfo || typeof item.nutritionalInfo !== 'object') {
       return (
@@ -50,11 +47,7 @@ export default function History() {
         </Text>
         <View className="mt-2">
           {Object.entries(item.nutritionalInfo).map(([key, value]) => (
-            <NutritionalCard
-              key={key}
-              title={key.charAt(0).toUpperCase() + key.slice(1)}
-              value={value}
-            />
+            <NutritionalCard key={key} title={key} value={value} />
           ))}
         </View>
       </View>

@@ -4,31 +4,32 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import History from '@pages/history';
 import Home from '@pages/home';
 import Settings from '@pages/settings';
-import { AuthStack, UserContext } from '@utils/helpers';
-import { AppStackParameters } from '@utils/types';
+import { UserContext } from '@utils/helpers';
 import Authentication from '@pages/auth';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export const AuthNavigator = () => {
+  const Auth = createStackNavigator();
+
   return (
-    <AuthStack.Navigator initialRouteName="Welcome">
-      <AuthStack.Screen
+    <Auth.Navigator initialRouteName="Welcome">
+      <Auth.Screen
         name="Welcome"
         component={Authentication}
         options={{ title: 'Welcome', headerTitleAlign: 'center' }}
       />
-    </AuthStack.Navigator>
+    </Auth.Navigator>
   );
 };
 
 export const AppNavigator = () => {
   const { user } = useContext(UserContext);
-  const Tab = createBottomTabNavigator<AppStackParameters>();
+  const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
-        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: string = '';
 
@@ -51,11 +52,9 @@ export const AppNavigator = () => {
               iconName = 'ellipse';
           }
 
-          return (
-            <Ionicons name={iconName as string} size={size} color={color} />
-          );
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#000',
+        tabBarActiveTintColor: '#3b82f6',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: '#fff',
@@ -64,8 +63,12 @@ export const AppNavigator = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
-      {user?.isPremium && <Tab.Screen name="History" component={History} />}
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerTitleAlign: 'center' }}
+      />
+      <Tab.Screen name="History" component={History} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
