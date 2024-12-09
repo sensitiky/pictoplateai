@@ -29,16 +29,24 @@ class HistoryService {
       const currentHistory = await this.getHistory();
       currentHistory.unshift(item);
       await AsyncStorage.setItem(this.key, JSON.stringify(currentHistory));
+      console.log('History updated:', currentHistory);
     } catch (error) {
       console.error('Error adding to history:', error);
     }
   }
-
-  public async clearHistory(): Promise<void> {
+  public async deleteItem(itemId: string): Promise<void> {
     try {
-      await AsyncStorage.removeItem(this.key);
+      const currentHistory = await this.getHistory();
+      const updatedHistory = currentHistory.filter(
+        (item) => item.id !== itemId
+      );
+      await AsyncStorage.setItem(this.key, JSON.stringify(updatedHistory));
+      console.log(
+        `History item with id ${itemId} removed. Updated history:`,
+        updatedHistory
+      );
     } catch (error) {
-      console.error('Error clearing history:', error);
+      console.error('Error removing item:', error);
     }
   }
 }

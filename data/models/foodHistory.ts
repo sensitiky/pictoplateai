@@ -1,17 +1,17 @@
 export class HistoryItem {
-  id: number;
-  dateTime: Date;
+  id: string;
+  dateTime: string;
   nutritionalInfo?: Record<string, string>;
-  imagePath?: string | undefined;
+  imagePath?: string;
 
   constructor(
-    id: number,
+    id: string,
     dateTime: Date,
     nutritionalInfo: Record<string, string>,
     imagePath?: string
   ) {
     this.id = id;
-    this.dateTime = dateTime;
+    this.dateTime = dateTime.toISOString();
     this.nutritionalInfo = nutritionalInfo;
     this.imagePath = imagePath;
   }

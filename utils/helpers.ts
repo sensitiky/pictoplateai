@@ -6,3 +6,4 @@ export const UserContext = createContext<UserContextProps>({
   loading: true,
   setUser: async () => Promise.resolve(),
 });
+export const itemSkus: string[] = ['premium_subscription'];

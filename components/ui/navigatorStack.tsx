@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import History from '@pages/history';
+import HistoryList from '@pages/history';
 import Home from '@pages/home';
 import Settings from '@pages/settings';
-import { UserContext } from '@utils/helpers';
 import Authentication from '@pages/auth';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -23,7 +21,6 @@ export const AuthNavigator = () => {
 };
 
 export const AppNavigator = () => {
-  const { user } = useContext(UserContext);
   const Tab = createBottomTabNavigator();
 
   return (
@@ -63,12 +60,12 @@ export const AppNavigator = () => {
         },
       })}
     >
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{ headerTitleAlign: 'center' }}
+        name="History"
+        component={HistoryList}
+        options={{ headerTitle: 'Food History' }}
       />
-      <Tab.Screen name="History" component={History} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

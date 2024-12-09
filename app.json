@@ -4,11 +4,11 @@
     "slug": "pictoplateai",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.webp",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/logo.webp",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,13 +17,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.webp",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sensitiky.pictoplateai"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins":["react-native-iap"]
+    "plugins": ["react-native-iap"],
+    "extra": {
+      "eas": {
+        "projectId": "907c2aeb-3deb-4d46-a98a-409b01eb9eda"
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ export interface IUser {
   lastName: string;
   email: string;
   isPremium: boolean;
+  analysisCount: number;
 }
 export interface UserContextProps {
   user: IUser | null;
@@ -16,4 +17,8 @@ export interface IAuthenticationForms {
 export interface NutritionalCardProps {
   title: string;
   value: string;
+}
+export interface PurchaseSubscriptionProps {
+  visible: boolean;
+  onClose: () => void;
 }
