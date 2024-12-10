@@ -6,6 +6,7 @@ import Settings from '@pages/settings';
 import Authentication from '@pages/auth';
 import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from '@pages/welcome';
+import { useNavigation } from '@react-navigation/native';
 
 export const AuthNavigator = () => {
   const Auth = createStackNavigator();
@@ -24,7 +25,6 @@ export const AuthNavigator = () => {
           title: 'Welcome',
           headerTitleAlign: 'center',
           headerShadowVisible: false,
-          headerLeft: () => null,
         }}
       />
     </Auth.Navigator>
@@ -32,6 +32,7 @@ export const AuthNavigator = () => {
 };
 
 export const AppNavigator = () => {
+  const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
   return (
@@ -68,16 +69,25 @@ export const AppNavigator = () => {
           backgroundColor: '#fff',
           borderTopWidth: 0,
           elevation: 5,
+          alignContent: 'space-evenly',
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShadowVisible: false }}
+      />
       <Tab.Screen
         name="History"
         component={HistoryList}
-        options={{ headerTitle: 'Food History' }}
+        options={{ headerTitle: 'Food History', headerShadowVisible: false }}
       />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{ headerShadowVisible: false }}
+      />
     </Tab.Navigator>
   );
 };

@@ -124,7 +124,7 @@ export default function FloatingImagePicker({
     }
     setLoading(false);
   };
-  console.log(user?.analysisCount);
+
   return (
     <TouchableOpacity
       className="absolute bottom-4 right-4 w-16 h-16 bg-blue-500 rounded-full justify-center items-center shadow-lg"

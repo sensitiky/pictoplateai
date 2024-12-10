@@ -94,7 +94,7 @@ export default function HistoryList() {
 
   return (
     <View className="flex-1 p-5 bg-white">
-      {history.length === 0 ? (
+      {history.length === null ? (
         <Text className="text-center text-gray-500">No history to show.</Text>
       ) : (
         <FlatList
