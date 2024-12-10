@@ -1,26 +1,12 @@
 import { useRef, useState } from 'react';
 import { FlatList, View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-const slides = [
-  {
-    key: 1,
-    title: 'Welcome',
-    description: 'Pic to Plate AI will manage your intake with just pictures',
-    img: require('../assets/logo.webp'),
-  },
-  {
-    key: 2,
-    title: 'Just one pic',
-    description: 'Pic to Plate AI will manage your intake with just pictures',
-    img: require('../assets/logo.webp'),
-  },
-];
+import { slides } from '@constants/variousData';
 
 const Slide = ({
-  item,
+  slide: item,
 }: {
-  item: { key: number; title: string; description: string; img: any };
+  slide: { key: number; title: string; description: string; img: any };
 }) => {
   return (
     <View className="justify-center items-center p-6">
@@ -50,7 +36,7 @@ export default function Welcome() {
     <View className="flex-1 bg-white">
       <FlatList
         data={slides}
-        renderItem={({ item }) => <Slide item={item} />}
+        renderItem={({ item }) => <Slide slide={item} />}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}

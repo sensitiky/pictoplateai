@@ -22,3 +22,7 @@ export interface PurchaseSubscriptionProps {
   visible: boolean;
   onClose: () => void;
 }
+export interface FAQProps {
+  visible: boolean;
+  onClose: () => void;
+}

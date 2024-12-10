@@ -6,8 +6,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesignIcon from 'react-native-vector-icons/FontAwesome5';
 import Constants from 'expo-constants';
 import PurchaseSubscription from '@components/ui/purchaseSuscription';
+import { useNavigation } from '@react-navigation/native';
+import FAQ from './faq';
 
 export default function Settings() {
+  const [isFaqVisible, setFAQVisible] = useState<boolean>(false);
+  const navigation = useNavigation();
   const { setUser } = useContext(UserContext);
   const appVersion =
     Constants.manifest2?.version || Constants.expoConfig?.version;
@@ -52,7 +56,10 @@ export default function Settings() {
           <Text className="text-base">Rate App</Text>
           <Icon name="chevron-forward" size={20} color="#ccc" />
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center justify-between py-4 px-4 border-b border-gray-200">
+        <TouchableOpacity
+          className="flex-row items-center justify-between py-4 px-4 border-b border-gray-200"
+          onPress={() => setFAQVisible(true)}
+        >
           <Text className="text-base">FAQ</Text>
           <Icon name="chevron-forward" size={20} color="#ccc" />
         </TouchableOpacity>
@@ -73,6 +80,7 @@ export default function Settings() {
         visible={isPurchaseModalVisible}
         onClose={() => setPurchaseModalVisible(false)}
       /> */}
+      <FAQ visible={isFaqVisible} onClose={() => setFAQVisible(false)} />
     </View>
   );
 }
