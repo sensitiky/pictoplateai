@@ -32,7 +32,7 @@ export default function Settings() {
   };
 
   return (
-    <Modal className="flex-1 bg-white" animationType="slide">
+    <View className="flex-1 bg-white">
       <TouchableOpacity
         className="bg-blue-500 mt-8 gap-2 p-3 rounded-3xl items-center justify-evenly self-center flex-row"
         onPress={() => setPurchaseModalVisible(true)}
@@ -69,10 +69,10 @@ export default function Settings() {
         </TouchableOpacity>
       </View>
       <Text className="ml-4 text-gray-500">App version {appVersion}</Text>
-      <PurchaseSubscription
+      {/*<PurchaseSubscription
         visible={isPurchaseModalVisible}
         onClose={() => setPurchaseModalVisible(false)}
-      />
-    </Modal>
+      /> */}
+    </View>
   );
 }
