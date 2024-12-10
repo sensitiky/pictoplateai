@@ -5,6 +5,7 @@ import Home from '@pages/home';
 import Settings from '@pages/settings';
 import Authentication from '@pages/auth';
 import { createStackNavigator } from '@react-navigation/stack';
+import Welcome from '@pages/welcome';
 
 export const AuthNavigator = () => {
   const Auth = createStackNavigator();
@@ -13,8 +14,18 @@ export const AuthNavigator = () => {
     <Auth.Navigator initialRouteName="Welcome">
       <Auth.Screen
         name="Welcome"
+        component={Welcome}
+        options={{ title: '', headerShadowVisible: false }}
+      />
+      <Auth.Screen
+        name="Authentication"
         component={Authentication}
-        options={{ title: 'Welcome', headerTitleAlign: 'center' }}
+        options={{
+          title: 'Welcome',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerLeft: () => null,
+        }}
       />
     </Auth.Navigator>
   );

@@ -46,6 +46,9 @@ export default function Home() {
         )}
         {nutritionalInfo ? (
           <ScrollView className="flex-1 w-full px-5">
+            <Text className="font-bold text-xl text-gray-800">
+              Nutritioanl Facts
+            </Text>
             {Object.entries(nutritionalInfo).map(([key, value]) => (
               <NutritionalCard key={key} value={value} title={key} />
             ))}
