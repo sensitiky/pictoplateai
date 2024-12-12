@@ -21,17 +21,17 @@ export class OpenFoodService {
         const carbohydrates: number = nutriments['carbohydrates_100g'] ?? 0.0;
 
         return {
-          calories: calories.toString(),
-          protein: protein.toString(),
-          fat: fat.toString(),
-          carbohydrates: carbohydrates.toString(),
+          calories: `${calories.toString()} kcal`,
+          protein: `${protein.toString()} gr`,
+          fat: `${fat.toString()} gr`,
+          carbohydrates: `${carbohydrates.toString()} gr`,
         };
       } else {
-        console.log('Alimento no encontrado en Open Food Facts.');
+        console.log('Food not found on Open Food Facts.');
         return null;
       }
     } else {
-      console.log(`Error al buscar alimento: ${response.body}`);
+      console.log(`Food not recognized: ${response.body}`);
       return null;
     }
   }
