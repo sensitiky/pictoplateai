@@ -1,3 +1,5 @@
+import { clarifai } from '@constants/config';
+
 export class ClarifaiService {
   private pat: string;
   private userID: string;
@@ -6,11 +8,11 @@ export class ClarifaiService {
   private modelVersionID: string;
 
   constructor() {
-    this.pat = process.env.EXPO_PUBLIC_PAT_KEY;
-    this.userID = process.env.EXPO_PUBLIC_USER_ID;
-    this.appID = process.env.EXPO_PUBLIC_CLARIFAI_APP_ID;
-    this.modelID = process.env.EXPO_PUBLIC_MODEL_ID;
-    this.modelVersionID = process.env.EXPO_PUBLIC_MODEL_VERSION_ID;
+    this.pat = clarifai.pat;
+    this.userID = clarifai.userID;
+    this.appID = clarifai.appID;
+    this.modelID = clarifai.modelID;
+    this.modelVersionID = clarifai.modelVersionID;
   }
 
   public async analyzeImage(base64Image: string): Promise<Map<string, any>> {
