@@ -6,7 +6,6 @@ import Settings from '@pages/settings';
 import Authentication from '@pages/auth';
 import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from '@pages/welcome';
-import { useNavigation } from '@react-navigation/native';
 
 export const AuthNavigator = () => {
   const Auth = createStackNavigator();
@@ -32,7 +31,6 @@ export const AuthNavigator = () => {
 };
 
 export const AppNavigator = () => {
-  const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
   return (
