@@ -61,11 +61,14 @@ export const AppNavigator = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#3b82f6',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#002f91',
+        tabBarInactiveTintColor: 'white',
         tabBarStyle: {
-          backgroundColor: '#fff',
+          borderRadius: 25,
+          backgroundColor: '#bcbcbc',
           borderTopWidth: 0,
+          marginHorizontal: 5,
+          marginBottom: 4,
           elevation: 5,
           alignContent: 'space-evenly',
         },

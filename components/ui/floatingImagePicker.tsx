@@ -34,7 +34,7 @@ export default function FloatingImagePicker({
       Alert.alert('Permission to access media library is required!');
       return;
     }
-    if (!user?.isPremium && user?.analysisCount! >= 5) {
+    if (!user?.isPremium && user?.analysisCount! >= 50) {
       Alert.alert(
         'Limit Reached',
         'You have reached the maximum number of analyses for non-premium users. Please upgrade to premium to continue.',
@@ -127,7 +127,7 @@ export default function FloatingImagePicker({
 
   return (
     <TouchableOpacity
-      className="absolute bottom-4 right-4 w-16 h-16 bg-blue-500 rounded-full justify-center items-center shadow-lg"
+      className="absolute bottom-4 right-4 w-16 h-16 bg-[#002f91] rounded-full justify-center items-center shadow-lg"
       onPress={pickImage}
       disabled={loading}
     >
